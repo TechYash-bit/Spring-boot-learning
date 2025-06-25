@@ -14,6 +14,11 @@ public class Day1Application implements CommandLineRunner {
 	Apple obj;
 	@Autowired
 	Mango mango;
+	@Autowired
+	Cherry cherry;
+
+	@Autowired
+	Banana banana;
 	public static void main(String[] args) {
 		SpringApplication.run(Day1Application.class, args);
 		System.out.println("Hello from main method!");
@@ -23,8 +28,11 @@ public class Day1Application implements CommandLineRunner {
 	//this is no static method
 	@Override
 	public void run(String... args) throws Exception {
+		obj.eatApple("yash");
 		obj.eatApple();
-
 		mango.eatingMango();
+		banana.eatBanana();
+		cherry.eatcherry();
+
 	}
 }
