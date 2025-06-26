@@ -1,10 +1,11 @@
 package com.TechYash_Bit.day1;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
 
 public class Banana {
 
-
+    @PostConstruct//this will run first that is before the main method
     public  void eatBanana(){
         System.out.println("a man is eating a banana");
     }
