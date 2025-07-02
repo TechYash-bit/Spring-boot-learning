@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 public class Apple {
 
     public void eatApple(){
-        System.out.println("A man eating a apple");
+        System.out.println("WITHOUT : A man eating a apple");
     }
 
     public void eatApple(String name){
-        System.out.println(name+" is eating apple");
+        System.out.println("WITH : "+name+" is eating apple");
     }
 }

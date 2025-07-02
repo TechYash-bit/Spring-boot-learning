@@ -28,11 +28,13 @@ public class Day1Application implements CommandLineRunner {
 	//this is no static method
 	@Override
 	public void run(String... args) throws Exception {
-		obj.eatApple("yash");
-		obj.eatApple();
-		mango.eatingMango();
-		banana.eatBanana();
-		cherry.eatcherry();
+
+	obj.eatApple();
+	obj.eatApple("yash");
+	banana.eatBanana2();
+	banana.eatBanana();
+	banana.eatBanana("yash");
+	cherry.eatcherry();
 
 	}
 }

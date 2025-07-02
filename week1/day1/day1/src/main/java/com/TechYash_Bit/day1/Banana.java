@@ -8,10 +8,16 @@ import org.springframework.stereotype.Component;
 public class Banana {
 
     @PostConstruct//this will run first that is before the main method
-    public  void eatBanana(){
-        System.out.println("a man is eating a banana");
+    public  void eatBanana2(){
+        System.out.println(" POST CONSTRUCTOR :a man is eating a banana");
     }
+
+    public  void eatBanana(){
+        System.out.println(" a man is eating a banana");
+    }
+
+
     public void eatBanana(String name){
-        System.out.println("banana is eat by"+name);
+        System.out.println("banana is eat by "+name);
     }
 }

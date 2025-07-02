@@ -10,12 +10,12 @@ public class NewConfig {
         return new Apple();
     }
 
-    @Bean
-    Banana eatBanana(){
-        return new Banana();
-    }
 //    @Bean
-//    Cherry eat(){
-//        return new Cherry();
+//    Banana eatBanana(){
+//        return new Banana();
 //    }
+    @Bean
+    Cherry eat(){
+        return new Cherry();
+    }
 }

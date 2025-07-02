@@ -9,6 +9,6 @@ public class Cherry {
 
     @PreDestroy//this will run after he project will stop
     public void eatcherry(){
-        System.out.println("cherry is eatten by men");
+        System.out.println(" PRE DESTROY :cherry is eatten by men");
     }
 }
