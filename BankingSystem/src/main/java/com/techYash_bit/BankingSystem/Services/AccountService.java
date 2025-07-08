@@ -5,8 +5,12 @@ import com.techYash_bit.BankingSystem.Entities.AccountEntity;
 import com.techYash_bit.BankingSystem.Repositories.Accountrepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,9 +22,9 @@ public class AccountService {
         this.accountrepo=accountrepo;
         this.modelMapper=modelMapper;
     }
-    public AccountDto findAccount(int accno){
-        AccountEntity accountEntity=accountrepo.findById(accno).orElse(null);
-        return modelMapper.map(accountEntity,AccountDto.class);
+
+    public Optional<AccountDto> findAccount(int accno){
+        return accountrepo.findById(accno).map(accountEntity -> modelMapper.map(accountEntity,AccountDto.class));
     }
     public AccountDto addAccount(AccountDto accountDto){
        AccountEntity accountEntity=modelMapper.map(accountDto,AccountEntity.class);
@@ -32,5 +36,38 @@ public class AccountService {
         return accountEntity.stream()
                 .map(entity-> modelMapper.map(entity,AccountDto.class))
                 .collect(Collectors.toList());
+    }
+
+    public AccountDto updateAccountInfo(int accno, AccountDto updateAccount) {
+        AccountEntity accountEntity=accountrepo.findById(accno).orElse(null);
+        accountEntity.setAcctype(updateAccount.getAcctype());
+        accountEntity.setAccnm(updateAccount.getAccnm());
+        accountEntity.setBalance(updateAccount.getBalance());
+        accountrepo.save(accountEntity);
+       return  modelMapper.map(accountEntity,AccountDto.class);
+    }
+    public boolean existAccount(int accno){
+        return accountrepo.existsById(accno);
+    }
+
+    public boolean deleteAccountInfo(int accno) {
+        boolean exist=existAccount(accno);
+        if(!exist) return false;
+        accountrepo.deleteById(accno);
+        return true;
+    }
+
+    public AccountDto particalUpdate(int accno, Map<String, Object> updaets) {
+        boolean exist=existAccount(accno);
+        if(!exist) return  null;
+        AccountEntity accountEntity=accountrepo.findById(accno).get();
+        updaets.forEach((key,value)->{
+            Field field= ReflectionUtils.findField(AccountEntity.class,key);
+            if(field!=null) {
+                field.setAccessible(true);
+                ReflectionUtils.setField(field, accountEntity, value);
+            }
+        });
+        return modelMapper.map(accountrepo.save(accountEntity),AccountDto.class);
     }
 }
