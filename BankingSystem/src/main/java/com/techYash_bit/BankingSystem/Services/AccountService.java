@@ -3,6 +3,7 @@ package com.techYash_bit.BankingSystem.Services;
 import com.techYash_bit.BankingSystem.Dto.AccountDto;
 import com.techYash_bit.BankingSystem.Entities.AccountEntity;
 import com.techYash_bit.BankingSystem.Repositories.Accountrepo;
+import com.techYash_bit.BankingSystem.exceptions.ResourseNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
@@ -39,7 +40,12 @@ public class AccountService {
     }
 
     public AccountDto updateAccountInfo(int accno, AccountDto updateAccount) {
-        AccountEntity accountEntity=accountrepo.findById(accno).orElse(null);
+
+        boolean exist=existAccount(accno);
+        if(!exist) throw new ResourseNotFoundException("Account not present "+ accno);
+
+        AccountEntity accountEntity=accountrepo.findById(accno)
+                 .orElseThrow(() -> new ResourseNotFoundException("Account not present " + accno));
         accountEntity.setAcctype(updateAccount.getAcctype());
         accountEntity.setAccnm(updateAccount.getAccnm());
         accountEntity.setBalance(updateAccount.getBalance());

@@ -2,14 +2,14 @@ package com.techYash_bit.BankingSystem.Controller;
 
 import com.techYash_bit.BankingSystem.Dto.AccountDto;
 import com.techYash_bit.BankingSystem.Services.AccountService;
+import com.techYash_bit.BankingSystem.exceptions.ResourseNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/account")
@@ -25,10 +25,14 @@ public class ManagerBankController {
     public ResponseEntity<AccountDto> getAccount(@PathVariable int accno){
         Optional<AccountDto> accountDto= accountService.findAccount(accno);
         return accountDto
-                .map(accountDto1 -> ResponseEntity.ok(accountDto1)).orElse(ResponseEntity.notFound().build());
+                .map(accountDto1 -> ResponseEntity.ok(accountDto1))
+                .orElseThrow(()-> new ResourseNotFoundException("Account not present in the bank "+accno));
     }
+
+
+
     @PostMapping("/addAcc")
-    public ResponseEntity<AccountDto> addAccoutn(@RequestBody AccountDto accountDto){
+    public ResponseEntity<AccountDto> addAccoutn(@RequestBody @Valid AccountDto accountDto){
         AccountDto accountDto1=accountService.addAccount(accountDto);
         return new ResponseEntity<>(accountDto1, HttpStatus.CREATED);
     }
@@ -45,7 +49,7 @@ public class ManagerBankController {
     }
 
     @PutMapping(path = "/{accno}")
-    public ResponseEntity<AccountDto> updateAccount(@PathVariable int accno,@RequestBody AccountDto updateAccount){
+    public ResponseEntity<AccountDto> updateAccount(@PathVariable int accno,@RequestBody @Valid AccountDto updateAccount){
         return ResponseEntity.ok(accountService.updateAccountInfo(accno,updateAccount));
     }
 
