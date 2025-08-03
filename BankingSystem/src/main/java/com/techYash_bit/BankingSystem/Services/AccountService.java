@@ -5,6 +5,10 @@ import com.techYash_bit.BankingSystem.Entities.AccountEntity;
 import com.techYash_bit.BankingSystem.Repositories.Accountrepo;
 import com.techYash_bit.BankingSystem.exceptions.ResourseNotFoundException;
 import org.modelmapper.ModelMapper;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
@@ -75,5 +79,13 @@ public class AccountService {
             }
         });
         return modelMapper.map(accountrepo.save(accountEntity),AccountDto.class);
+    }
+
+    public List<AccountDto> getAccountsByAccountType(String acctype,int page,int size) {
+        Pageable pageable= PageRequest.of(page,size);
+        Page<AccountEntity> accountEntity=accountrepo.findByAcctype(acctype, pageable);
+        return accountEntity.getContent().stream().map(accountEntity1 ->
+            modelMapper.map(accountEntity1,AccountDto.class)).collect(Collectors.toList());
+
     }
 }

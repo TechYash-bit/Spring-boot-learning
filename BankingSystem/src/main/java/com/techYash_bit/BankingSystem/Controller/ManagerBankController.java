@@ -14,6 +14,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/account")
 public class ManagerBankController {
+    int SIZE=5;
 
     final private AccountService accountService;
 
@@ -58,5 +59,13 @@ public class ManagerBankController {
         AccountDto accountDto= accountService.particalUpdate(accno,updates);
         if(accountDto==null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(accountDto);
+    }
+
+    @GetMapping(path = "/acctype/{acctype}")
+    public ResponseEntity<List<AccountDto>> getAccountsByAccountType
+            (@PathVariable String acctype,@RequestParam(defaultValue = "0")int page){
+//        List<AccountDto> result = accountService.getAccountsByAccountType(acctype, page, size);
+//        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(accountService.getAccountsByAccountType(acctype,page,SIZE));
     }
 }

@@ -39,11 +39,13 @@ public class BookService {
         return modelMapper.map(bookEntity,BookDto.class);
     }
 
+
+
     public Optional<BookDto> findBookById(int id) {
-
-
         return bookRepo.findById(id).map(bookEntity -> modelMapper.map(bookEntity,BookDto.class));
     }
+
+
 
     public BookDto updateBook(int id, BookDto bkdto) {
         if(!isBookExist(id))
@@ -55,7 +57,7 @@ public class BookService {
         bkentity.setTitle(bkdto.getTitle());
         bkentity.setCategory(bkdto.getCategory());
         bkentity.setAuthor(bkdto.getAuthor());
-        bkentity.setStock(bkdto.getStock());
+        bkentity.setQuantity(bkdto.getQuantity());
         bkentity.setPrice(bkdto.getPrice());
         bookRepo.save(bkentity);
 

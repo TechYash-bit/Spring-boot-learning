@@ -17,18 +17,14 @@ public class BookEntity {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
 
-
         private String title;
-
-
         private String author;
-
+        private String description;
+        private String isbn;
+        private double price;
+        private int quantity;
         private String category;
 
-
-        private double price;
-
-        private int stock;
     }
 
 
