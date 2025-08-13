@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class CartDto {
-    private int id;
-    private int userId;
-    private int bookId;
-    private int quantity;
-    private double price;
+public class RequestUserDto {
+    private String name;
+    private String email;
 }

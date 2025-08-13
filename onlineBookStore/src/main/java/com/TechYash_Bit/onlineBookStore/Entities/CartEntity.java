@@ -16,7 +16,7 @@ public class CartEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "userId",nullable = false)
@@ -30,6 +30,6 @@ public class CartEntity {
     private double price;
 
     @ManyToOne()
-    @JoinColumn(name = "orderId",nullable = false)
+    @JoinColumn(name = "orderId",nullable = true)
     private OrderEntity order;
 }

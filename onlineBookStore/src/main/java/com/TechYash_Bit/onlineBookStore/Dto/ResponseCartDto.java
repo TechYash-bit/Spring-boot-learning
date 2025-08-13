@@ -9,15 +9,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookDto {
-    private int id;
+public class ResponseCartDto {
 
-    private String title;
-    private String author;
-    private String description;
-    private String isbn;
-    private double price;
+    private Long id;
+    private int userId;
+    private int bookId;
     private int quantity;
-    private String category;
-
+    private double price;
 }

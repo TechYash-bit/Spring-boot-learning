@@ -5,8 +5,9 @@ import com.TechYash_Bit.billing.Software.dto.CategoryResponse;
 
 import java.util.List;
 
-public interface Category {
+public interface CategoriesSer {
     CategoryResponse addCategory(CategoryRequest categoryRequest);
 
     List<CategoryResponse> getAllCategory();
+    void delete(String categoryId);
 }
